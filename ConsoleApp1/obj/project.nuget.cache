@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "dgSpecHash": "FoiDkOz7C6Q=",
+  "success": true,
+  "projectFilePath": "/home/gr624_addan/RiderProjects/ConsoleApp1/ConsoleApp1/ConsoleApp1.csproj",
+  "expectedPackageFiles": [
+    "/home/gr624_addan/.nuget/packages/avalonia/11.3.8/avalonia.11.3.8.nupkg.sha512",
+    "/home/gr624_addan/.nuget/packages/avalonia.buildservices/11.3.1/avalonia.buildservices.11.3.1.nupkg.sha512",
+    "/home/gr624_addan/.nuget/packages/avalonia.remote.protocol/11.3.8/avalonia.remote.protocol.11.3.8.nupkg.sha512",
+    "/home/gr624_addan/.nuget/packages/microcom.runtime/0.11.0/microcom.runtime.0.11.0.nupkg.sha512",
+    "/home/gr624_addan/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/10.0.0-rc.1.25451.107/microsoft.extensions.dependencyinjection.abstractions.10.0.0-rc.1.25451.107.nupkg.sha512",
+    "/home/gr624_addan/.nuget/packages/microsoft.extensions.logging.abstractions/10.0.0-rc.1.25451.107/microsoft.extensions.logging.abstractions.10.0.0-rc.1.25451.107.nupkg.sha512",
+    "/home/gr624_addan/.nuget/packages/npgsql/10.0.0-rc.1/npgsql.10.0.0-rc.1.nupkg.sha512",
+    "/home/gr624_addan/.nuget/packages/system.diagnostics.diagnosticsource/10.0.0-rc.1.25451.107/system.diagnostics.diagnosticsource.10.0.0-rc.1.25451.107.nupkg.sha512",
+    "/home/gr624_addan/.nuget/packages/system.io.pipelines/10.0.0-rc.2.25502.107/system.io.pipelines.10.0.0-rc.2.25502.107.nupkg.sha512",
+    "/home/gr624_addan/.nuget/packages/system.text.encodings.web/10.0.0-rc.2.25502.107/system.text.encodings.web.10.0.0-rc.2.25502.107.nupkg.sha512",
+    "/home/gr624_addan/.nuget/packages/system.text.json/10.0.0-rc.2.25502.107/system.text.json.10.0.0-rc.2.25502.107.nupkg.sha512"
+  ],
+  "logs": []
+}
