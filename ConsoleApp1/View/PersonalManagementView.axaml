@@ -1,0 +1,45 @@
+<UserControl xmlns="https://github.com/avaloniaui">
+    <Grid ColumnDefinitions="*,400" RowDefinitions="Auto,*,Auto" Margin="10" Spacing="10">
+        <!-- Header -->
+        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="10">
+            <TextBlock Text="Управление персоналом" FontSize="18" FontWeight="Bold"/>
+            <Button Content="Обновить" Command="{Binding LoadPersonalCommand}"/>
+            <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <!-- Personal List -->
+        <DataGrid Grid.Row="1" 
+                  Items="{Binding PersonalList}" 
+                  SelectedItem="{Binding SelectedPersonal}"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ФИО" Binding="{Binding FullName}" Width="200"/>
+                <DataGridTextColumn Header="Логин" Binding="{Binding Login}" Width="150"/>
+                <DataGridTextColumn Header="Роль" Binding="{Binding PersonalRole}" Width="120"/>
+                <DataGridCheckBoxColumn Header="Активен" Binding="{Binding Status}" Width="80"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Personal Details -->
+        <StackPanel Grid.Row="1" Grid.Column="1" Spacing="15" Margin="20,0,0,0">
+            <GroupBox Header="Данные сотрудника">
+                <StackPanel Spacing="10">
+                    <TextBox Watermark="Фамилия" Text="{Binding SelectedPersonal.LName}"/>
+                    <TextBox Watermark="Имя" Text="{Binding SelectedPersonal.FName}"/>
+                    <TextBox Watermark="Отчество" Text="{Binding SelectedPersonal.SName}"/>
+                    <TextBox Watermark="Логин" Text="{Binding SelectedPersonal.Login}"/>
+                    <TextBox Watermark="Пароль" Text="{Binding SelectedPersonal.Pass}"/>
+                    <ComboBox Items="{Binding PersonalRoles}" 
+                              SelectedItem="{Binding SelectedPersonal.PersonalRole}"/>
+                    
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Button Content="Создать" Command="{Binding CreatePersonalCommand}"/>
+                        <Button Content="Обновить" Command="{Binding UpdatePersonalCommand}"/>
+                        <Button Content="{Binding SelectedPersonal.Status, Converter={x:Static BoolToStatusConverter}}" 
+                                Command="{Binding ChangeStatusCommand}"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</UserControl>

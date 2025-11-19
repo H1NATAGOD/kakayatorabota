@@ -1,0 +1,60 @@
+<UserControl xmlns="https://github.com/avaloniaui">
+    <Grid ColumnDefinitions="*,300" RowDefinitions="Auto,*,Auto" Margin="10" Spacing="10">
+        <!-- Header -->
+        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="10">
+            <TextBlock Text="Управление заказами" FontSize="18" FontWeight="Bold"/>
+            <Button Content="Обновить" Command="{Binding LoadOrdersCommand}"/>
+            <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <!-- Orders List -->
+        <DataGrid Grid.Row="1" 
+                  Items="{Binding Orders}" 
+                  SelectedItem="{Binding SelectedOrder}"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№" Binding="{Binding Id}" Width="50"/>
+                <DataGridTextColumn Header="Стол" Binding="{Binding Table}" Width="60"/>
+                <DataGridTextColumn Header="Клиенты" Binding="{Binding ClientCount}" Width="70"/>
+                <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="100"/>
+                <DataGridTextColumn Header="Сумма" Binding="{Binding TotalPrice}" Width="80"/>
+                <DataGridTextColumn Header="Официант" Binding="{Binding Personal.FullName}" Width="150"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Order Details -->
+        <StackPanel Grid.Row="1" Grid.Column="1" Spacing="15" Margin="20,0,0,0">
+            <GroupBox Header="Новый заказ">
+                <StackPanel Spacing="10">
+                    <TextBox Watermark="Номер стола" Text="{Binding SelectedOrder.Table}"/>
+                    <TextBox Watermark="Количество клиентов" Text="{Binding SelectedOrder.ClientCount}"/>
+                    <Button Content="Создать заказ" Command="{Binding CreateOrderCommand}"/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Добавить блюдо">
+                <StackPanel Spacing="10">
+                    <ComboBox Items="{Binding AvailableMenus}" 
+                              SelectedItem="{Binding SelectedMenu}"
+                              DisplayMemberBinding="{Binding Name}"/>
+                    <TextBox Watermark="Количество" Text="{Binding Quantity}"/>
+                    <Button Content="Добавить" Command="{Binding AddProductCommand}"/>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="Управление заказом">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="{Binding SelectedOrder.Id, StringFormat='Заказ №{0}'}" 
+                               FontWeight="Bold"/>
+                    <TextBlock Text="{Binding SelectedOrder.Status, StringFormat='Статус: {0}'}"/>
+                    <TextBlock Text="{Binding NewOrderTotal, StringFormat='Сумма: {0:C}'}"/>
+                    
+                    <Button Content="Сменить статус" Command="{Binding UpdateStatusCommand}"/>
+                    <Button Content="Оплатить" 
+                            Command="{Binding ProcessPaymentCommand}"
+                            IsEnabled="{Binding !ProcessPaymentCommand.IsRunning}"/>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</UserControl>

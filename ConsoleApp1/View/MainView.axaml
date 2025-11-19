@@ -1,0 +1,67 @@
+<Window xmlns="https://github.com/avaloniaui"
+        Title="{Binding Title}">
+    <DockPanel>
+        <!-- Header -->
+        <Border DockPanel.Dock="Top" 
+                Background="#2C3E50"
+                Height="60">
+            <Grid Margin="20,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Text="{Binding Title}" 
+                           Foreground="White"
+                           FontSize="18"
+                           VerticalAlignment="Center"/>
+                
+                <StackPanel Grid.Column="1" 
+                            Orientation="Horizontal" 
+                            Spacing="15"
+                            VerticalAlignment="Center">
+                    <TextBlock Text="{Binding CurrentUser.FullName}" 
+                               Foreground="White"/>
+                    <Button Content="Выйти" 
+                            Command="{Binding LogoutCommand}"
+                            Background="Transparent"
+                            Foreground="White"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Navigation -->
+        <Border DockPanel.Dock="Left" 
+                Background="#34495E" 
+                Width="200">
+            <StackPanel Margin="10" Spacing="5">
+                <Button Content="📋 Заказы" 
+                        Command="{Binding NavigateToOrdersCommand}"
+                        Style="{StaticResource NavButtonStyle}"/>
+                
+                <Button Content="🍽️ Меню" 
+                        Command="{Binding NavigateToMenuCommand}"
+                        Style="{StaticResource NavButtonStyle}"/>
+                
+                <Button Content="👥 Сотрудники" 
+                        Command="{Binding NavigateToPersonalCommand}"
+                        IsVisible="{Binding IsAdmin}"
+                        Style="{StaticResource NavButtonStyle}"/>
+                
+                <Button Content="📊 Отчеты" 
+                        Command="{Binding NavigateToReportsCommand}"
+                        IsVisible="{Binding IsAdmin}"
+                        Style="{StaticResource NavButtonStyle}"/>
+                
+                <Button Content="🕐 Смены" 
+                        Command="{Binding NavigateToShiftsCommand}"
+                        IsVisible="{Binding IsAdmin}"
+                        Style="{StaticResource NavButtonStyle}"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Content -->
+        <ContentControl Content="{Binding CurrentPage}"
+                        Margin="10"/>
+    </DockPanel>
+</Window>

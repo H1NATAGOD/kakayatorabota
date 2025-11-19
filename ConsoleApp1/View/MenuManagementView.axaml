@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui">
+    <Grid ColumnDefinitions="*,400" RowDefinitions="Auto,*,Auto" Margin="10" Spacing="10">
+        <!-- Header -->
+        <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="10">
+            <TextBlock Text="Управление меню" FontSize="18" FontWeight="Bold"/>
+            <Button Content="Обновить" Command="{Binding LoadMenusCommand}"/>
+            <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center"/>
+        </StackPanel>
+
+        <!-- Menu List -->
+        <DataGrid Grid.Row="1" 
+                  Items="{Binding Menus}" 
+                  SelectedItem="{Binding SelectedMenu}"
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="200"/>
+                <DataGridTextColumn Header="Цена" Binding="{Binding Price}" Width="100"/>
+                <DataGridTextColumn Header="Категории" Binding="{Binding Categories}" Width="200"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Menu Details -->
+        <StackPanel Grid.Row="1" Grid.Column="1" Spacing="15" Margin="20,0,0,0">
+            <GroupBox Header="Добавить/Редактировать">
+                <StackPanel Spacing="10">
+                    <TextBox Watermark="Название блюда" Text="{Binding SelectedMenu.Name}"/>
+                    <TextBox Watermark="Цена" Text="{Binding SelectedMenu.Price}"/>
+                    <ComboBox Items="{Binding Categories}" 
+                              SelectedItem="{Binding SelectedCategory}"
+                              DisplayMemberBinding="{Binding Name}"/>
+                    <TextBox Watermark="Описание" Text="{Binding SelectedMenu.Description}"/>
+                    
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Button Content="Создать" Command="{Binding CreateMenuCommand}"/>
+                        <Button Content="Обновить" Command="{Binding UpdateMenuCommand}"/>
+                        <Button Content="Удалить" Command="{Binding DeleteMenuCommand}"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+    </Grid>
+</UserControl>

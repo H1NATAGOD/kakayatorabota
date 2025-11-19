@@ -1,0 +1,20 @@
+// Views/OrderView.axaml - ТОЛЬКО UI
+<Window xmlns="https://github.com/avaloniaui">
+    <StackPanel>
+        <TextBlock Text="Управление заказами" FontSize="20"/>
+        
+        <Button Content="Загрузить заказы" Command="{Binding LoadOrdersCommand}"/>
+        <TextBlock Text="{Binding StatusMessage}"/>
+        
+        <DataGrid Items="{Binding Orders}" SelectedItem="{Binding SelectedOrder}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="№" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Стол" Binding="{Binding Table}"/>
+                <DataGridTextColumn Header="Статус" Binding="{Binding Status}"/>
+                <DataGridTextColumn Header="Сумма" Binding="{Binding TotalPrice}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <Button Content="Оплатить" Command="{Binding ProcessPaymentCommand}"/>
+    </StackPanel>
+</Window>
