@@ -1,4 +1,4 @@
-// Views/OrderView.axaml - ТОЛЬКО UI
+
 <Window xmlns="https://github.com/avaloniaui">
     <StackPanel>
         <TextBlock Text="Управление заказами" FontSize="20"/>

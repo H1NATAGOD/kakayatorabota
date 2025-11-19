@@ -1,5 +1,27 @@
-<UserControl xmlns="https://github.com/avaloniaui">
-    <Grid ColumnDefinitions="*,400" RowDefinitions="Auto,*,Auto" Margin="10" Spacing="10">
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ConsoleApp1.ViewModels"
+             xmlns:models="using:ConsoleApp1.Models"
+             xmlns:converters="using:ConsoleApp1.Converters"
+             xmlns:global="clr-namespace:"
+             x:Class="ConsoleApp1.Views.PersonalManagementView">
+    
+    <UserControl.Resources>
+        <converters:BoolToStatusConverter x:Key="BoolToStatusConverter"/>
+        <converters:EnumToItemsSourceConverter x:Key="EnumToItemsSourceConverter"/>
+    </UserControl.Resources>
+    
+    <Design.DataContext>
+        <global:PersonalManagementViewModel/>
+    </Design.DataContext>
+
+    <Grid ColumnDefinitions="*,400" RowDefinitions="Auto,*,Auto" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
         <!-- Header -->
         <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" Spacing="10">
             <TextBlock Text="Управление персоналом" FontSize="18" FontWeight="Bold"/>
@@ -11,32 +33,50 @@
         <DataGrid Grid.Row="1" 
                   Items="{Binding PersonalList}" 
                   SelectedItem="{Binding SelectedPersonal}"
-                  AutoGenerateColumns="False">
+                  AutoGenerateColumns="False"
+                  CanUserReorderColumns="False"
+                  CanUserResizeColumns="True"
+                  CanUserSortColumns="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ФИО" Binding="{Binding FullName}" Width="200"/>
+                <DataGridTextColumn Header="ФИО" Binding="{Binding FullName}" Width="*"/>
                 <DataGridTextColumn Header="Логин" Binding="{Binding Login}" Width="150"/>
                 <DataGridTextColumn Header="Роль" Binding="{Binding PersonalRole}" Width="120"/>
-                <DataGridCheckBoxColumn Header="Активен" Binding="{Binding Status}" Width="80"/>
+                <DataGridCheckBoxColumn Header="Активен" Binding="{Binding Status}" Width="80" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
 
         <!-- Personal Details -->
         <StackPanel Grid.Row="1" Grid.Column="1" Spacing="15" Margin="20,0,0,0">
             <GroupBox Header="Данные сотрудника">
-                <StackPanel Spacing="10">
-                    <TextBox Watermark="Фамилия" Text="{Binding SelectedPersonal.LName}"/>
-                    <TextBox Watermark="Имя" Text="{Binding SelectedPersonal.FName}"/>
-                    <TextBox Watermark="Отчество" Text="{Binding SelectedPersonal.SName}"/>
-                    <TextBox Watermark="Логин" Text="{Binding SelectedPersonal.Login}"/>
-                    <TextBox Watermark="Пароль" Text="{Binding SelectedPersonal.Pass}"/>
-                    <ComboBox Items="{Binding PersonalRoles}" 
-                              SelectedItem="{Binding SelectedPersonal.PersonalRole}"/>
+                <StackPanel Spacing="10" Margin="10">
+                    <TextBlock Text="Фамилия:" FontWeight="Bold"/>
+                    <TextBox Watermark="Введите фамилию" Text="{Binding SelectedPersonal.LName}"/>
                     
-                    <StackPanel Orientation="Horizontal" Spacing="10">
-                        <Button Content="Создать" Command="{Binding CreatePersonalCommand}"/>
-                        <Button Content="Обновить" Command="{Binding UpdatePersonalCommand}"/>
-                        <Button Content="{Binding SelectedPersonal.Status, Converter={x:Static BoolToStatusConverter}}" 
-                                Command="{Binding ChangeStatusCommand}"/>
+                    <TextBlock Text="Имя:" FontWeight="Bold" Margin="0,10,0,0"/>
+                    <TextBox Watermark="Введите имя" Text="{Binding SelectedPersonal.FName}"/>
+                    
+                    <TextBlock Text="Отчество:" FontWeight="Bold" Margin="0,10,0,0"/>
+                    <TextBox Watermark="Введите отчество" Text="{Binding SelectedPersonal.SName}"/>
+                    
+                    <TextBlock Text="Логин:" FontWeight="Bold" Margin="0,10,0,0"/>
+                    <TextBox Watermark="Введите логин" Text="{Binding SelectedPersonal.Login}"/>
+                    
+                    <TextBlock Text="Пароль:" FontWeight="Bold" Margin="0,10,0,0"/>
+                    <TextBox Watermark="Введите пароль" Text="{Binding SelectedPersonal.Pass}"/>
+                    
+                    <TextBlock Text="Роль:" FontWeight="Bold" Margin="0,10,0,0"/>
+                    <ComboBox Items="{Binding PersonalRoles}" 
+                              SelectedItem="{Binding SelectedPersonal.PersonalRole}"
+                              DisplayMemberBinding="{Binding .}"/>
+                    
+                    <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,20,0,0">
+                        <Button Content="Создать" Command="{Binding CreatePersonalCommand}" 
+                                HorizontalAlignment="Left" MinWidth="80"/>
+                        <Button Content="Обновить" Command="{Binding UpdatePersonalCommand}" 
+                                HorizontalAlignment="Left" MinWidth="80"/>
+                        <Button Content="{Binding SelectedPersonal.Status, Converter={StaticResource BoolToStatusConverter}}" 
+                                Command="{Binding ChangeStatusCommand}"
+                                HorizontalAlignment="Left" MinWidth="80"/>
                     </StackPanel>
                 </StackPanel>
             </GroupBox>

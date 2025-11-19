@@ -1,38 +1,21 @@
-// Services/PersonalService.cs
-public class PersonalService : IPersonalService
+using ConsoleApp1.Models;
+using PersonalRole = ConsoleApp1.enums.PersonalRole;
+
+namespace ConsoleApp1.Services
 {
-    private readonly IPersonalRepository _personalRepository;
-    
-    public PersonalService(IPersonalRepository personalRepository)
+    public interface IPersonalService
     {
-        _personalRepository = personalRepository;
-    }
-    
-    public async Task<bool> RegisterPersonalAsync(Personal personal)
-    {
-        // Проверка уникальности логина
-        if (await _personalRepository.IsLoginExistsAsync(personal.Login))
-        {
-            throw new ArgumentException("Логин уже существует");
-        }
-        
-        // Хеширование пароля
-        personal.Pass = HashPassword(personal.Pass);
-        
-        // Создание сотрудника
-        var personalId = await _personalRepository.CreatePersonalAsync(personal);
-        return personalId > 0;
-    }
-    
-    public async Task<List<Personal>> GetWaitersForShiftAsync()
-    {
-        return await _personalRepository.GetPersonalByRoleAndStatusAsync(PersonalRole.Waiter, true);
-    }
-    
-    private string HashPassword(string password)
-    {
-        // Реализация хеширования пароля
-        return BCrypt.Net.BCrypt.HashPassword(password);
+        Task<bool> RegisterPersonalAsync(Personal personal);
+        Task<bool> UpdatePersonalAsync(Personal personal);
+        Task<bool> ChangePersonalStatusAsync(int personalId, bool isActive);
+        Task<bool> ChangePasswordAsync(int personalId, string newPassword);
+        Task<Personal?> AuthenticateAsync(string login, string password);
+        Task<Personal?> GetPersonalByIdAsync(int id);
+        Task<List<Personal>> GetAllPersonalAsync();
+        Task<List<Personal>> GetActivePersonalAsync();
+        Task<List<Personal>> GetPersonalByRoleAsync(PersonalRole role);
+        Task<List<Personal>> GetWaitersForShiftAsync();
+        Task<List<Personal>> GetCooksForShiftAsync();
+        Task<bool> IsLoginUniqueAsync(string login, int? excludePersonalId = null);
     }
 }
-

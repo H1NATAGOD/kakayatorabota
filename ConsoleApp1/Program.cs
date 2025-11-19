@@ -1,3 +1,16 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿// Program.cs или App.axaml.cs
 
-Console.WriteLine("Hello, World!");
+using ConsoleApp1;
+
+public override void RegisterServices()
+{
+    var config = ConfigLoader.LoadConfig();
+    
+    Services.AddSingleton(config);
+    Services.AddTransient<IProductRepository, ProductRepository>();
+    Services.AddTransient<IProductService, ProductService>();
+    Services.AddTransient<MainViewModel>();
+}
+
+// Для использования AsyncRelayCommand добавьте пакет:
+// CommunityToolkit.Mvvm
